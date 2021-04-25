@@ -3,7 +3,8 @@ import ReactDOM from "react-dom"
 import App from "./App"
 import { worker } from "./mocks/browser"
 import { QueryClient, QueryClientProvider } from "react-query"
-import { ChakraProvider } from "@chakra-ui/react"
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react"
+import theme from "./theme"
 
 const queryClient = new QueryClient()
 
@@ -18,7 +19,8 @@ void prepare().then(() => {
   ReactDOM.render(
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
-        <ChakraProvider>
+        <ChakraProvider resetCSS theme={theme}>
+          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <App />
         </ChakraProvider>
       </QueryClientProvider>
