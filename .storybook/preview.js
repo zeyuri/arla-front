@@ -1,7 +1,7 @@
 import { worker } from "../src/mocks/browser"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ChakraProvider } from "@chakra-ui/react"
-import { ReactQueryDevtools } from "react-query-devtools"
+import { ReactQueryDevtools } from "react-query/devtools"
 
 const queryClient = new QueryClient()
 
