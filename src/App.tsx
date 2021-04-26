@@ -1,29 +1,42 @@
-// import { Codec, string, GetType } from "purify-ts/Codec"
-// import api from "./api"
-// import { useQuery } from "react-query"
-import { Box, Text, Link, VStack, Code, Grid } from "@chakra-ui/react"
-import { Logo, ColorModeSwitcher } from "./components"
+import { Codec, string, GetType } from "purify-ts/Codec"
+import api from "./api"
+import { useQuery } from "react-query"
+import { ColorModeSwitcher, Card } from "./components"
+import {
+  Box,
+  Text,
+  Link,
+  VStack,
+  Code,
+  Grid,
+  Flex,
+  Heading,
+  Container,
+  List,
+} from "@chakra-ui/react"
 
 function App(): JSX.Element {
   return (
     <Box textAlign="center" fontSize="xl">
       <Grid minH="100vh" p={3}>
-        <ColorModeSwitcher justifySelf="flex-end" />
-        <VStack spacing={8}>
-          <Logo h="40vmin" pointerEvents="none" />
-          <Text>
-            Edit <Code fontSize="xl">src/App.js</Code> and save to reload.
-          </Text>
-          <Link
-            color="teal.500"
-            href="https://chakra-ui.com"
-            fontSize="2xl"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn Chakra
-          </Link>
-        </VStack>
+        <Container maxW="container.lg">
+          <Header />
+          <VStack spacing={8}>
+            <ConsumerList />
+            <Text>
+              Edit <Code fontSize="xl">src/App.js</Code> and save to reload.
+            </Text>
+            <Link
+              color="teal.500"
+              href="https://chakra-ui.com"
+              fontSize="2xl"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn Chakra
+            </Link>
+          </VStack>
+        </Container>
       </Grid>
     </Box>
   )
@@ -31,19 +44,43 @@ function App(): JSX.Element {
 
 export default App
 
-// const Consumer = Codec.interface({
-//   id: string,
-//   name: string,
-//   annotation: string,
-//   estateId: string,
-//   cityId: string,
-// })
+const Header = () => (
+  <Flex as="header" justify="space-between">
+    <Heading>Arla</Heading>
+    <ColorModeSwitcher />
+  </Flex>
+)
 
-// type Consumer = GetType<typeof Consumer>
+const Consumer = Codec.interface({
+  id: string,
+  name: string,
+  annotation: string,
+  estateId: string,
+  cityId: string,
+})
 
-// const fetchConsumerList = async (): Promise<Consumer[]> => {
-//   const { data } = await api.get<Consumer[]>("/consumer")
-//   return data
-// }
+type Consumer = GetType<typeof Consumer>
 
-// const { data, error } = useQuery("consumer-list", fetchConsumerList)
+const fetchConsumerList = async (): Promise<Consumer[]> => {
+  const { data } = await api.get<{ data: Consumer[] }>("/consumer")
+  return data.data
+}
+
+const ConsumerList = () => {
+  const { data, isLoading } = useQuery("consumer-list", fetchConsumerList)
+
+  return isLoading ? (
+    <Box>{"loading"}</Box>
+  ) : data ? (
+    <List w="100%">
+      {data.map((consumer, i) => (
+        <Card
+          key={`${consumer.id}${i}`}
+          id={consumer.id}
+          title={consumer.name}
+          subtitle={`${consumer.cityId} / ${consumer.estateId}`}
+        />
+      ))}
+    </List>
+  ) : null
+}
