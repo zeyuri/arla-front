@@ -18,7 +18,7 @@ export const parameters = {
 const withProviders = (Story, context) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <ChakraProvider>
+      <ChakraProvider resetCSS>
         <Story {...context} />
         <ReactQueryDevtools />
       </ChakraProvider>
