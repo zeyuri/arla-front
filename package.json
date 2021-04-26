@@ -91,6 +91,7 @@
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "cypress": "^7.1.0",
+    "cypress-cucumber-preprocessor": "^4.1.0",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "^7.25.0",
     "eslint-config-prettier": "^8.3.0",
@@ -121,5 +122,8 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true
   }
 }
