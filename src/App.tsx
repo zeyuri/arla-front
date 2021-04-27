@@ -12,7 +12,6 @@ import {
   Flex,
   Heading,
   Container,
-  List,
 } from "@chakra-ui/react"
 
 function App(): JSX.Element {
@@ -72,7 +71,7 @@ const ConsumerList = () => {
   return isLoading ? (
     <Box>{"loading"}</Box>
   ) : data ? (
-    <List w="100%">
+    <VStack as="ul" w="100%" spacing="6">
       {data.map((consumer, i) => (
         <Card
           key={`${consumer.id}${i}`}
@@ -81,6 +80,6 @@ const ConsumerList = () => {
           subtitle={`${consumer.cityId} / ${consumer.estateId}`}
         />
       ))}
-    </List>
+    </VStack>
   ) : null
 }
