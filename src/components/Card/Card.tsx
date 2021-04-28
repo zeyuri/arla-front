@@ -50,7 +50,7 @@ export const Card = ({ title, subtitle, id }: CardProps): JSX.Element => {
       <DeleteModal
         onClose={onClose}
         id={id}
-        resource="consumer"
+        resource="customer"
         title={title}
         isOpen={isOpen}
       />

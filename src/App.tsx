@@ -21,7 +21,7 @@ function App(): JSX.Element {
         <Container maxW="container.lg">
           <Header />
           <VStack spacing={8}>
-            <ConsumerList />
+            <CustomerList />
             <Text>
               Edit <Code fontSize="xl">src/App.js</Code> and save to reload.
             </Text>
@@ -50,7 +50,7 @@ const Header = () => (
   </Flex>
 )
 
-const Consumer = Codec.interface({
+const Customer = Codec.interface({
   id: string,
   name: string,
   annotation: string,
@@ -58,26 +58,26 @@ const Consumer = Codec.interface({
   cityId: string,
 })
 
-type Consumer = GetType<typeof Consumer>
+type Customer = GetType<typeof Customer>
 
-const fetchConsumerList = async (): Promise<Consumer[]> => {
-  const { data } = await api.get<{ data: Consumer[] }>("/consumer")
+const fetchCustomerList = async (): Promise<Customer[]> => {
+  const { data } = await api.get<{ data: Customer[] }>("/customer")
   return data.data
 }
 
-const ConsumerList = () => {
-  const { data, isLoading } = useQuery("consumer-list", fetchConsumerList)
+const CustomerList = () => {
+  const { data, isLoading } = useQuery("customer-list", fetchCustomerList)
 
   return isLoading ? (
     <Box>{"loading"}</Box>
   ) : data ? (
     <VStack as="ul" w="100%" spacing="6">
-      {data.map((consumer, i) => (
+      {data.map((customer, i) => (
         <Card
-          key={`${consumer.id}${i}`}
-          id={consumer.id}
-          title={consumer.name}
-          subtitle={`${consumer.cityId} / ${consumer.estateId}`}
+          key={`${customer.id}${i}`}
+          id={customer.id}
+          title={customer.name}
+          subtitle={`${customer.cityId} / ${customer.estateId}`}
         />
       ))}
     </VStack>

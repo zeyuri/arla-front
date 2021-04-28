@@ -1,7 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import App from "./App"
-import { worker } from "./mocks/browser"
+// import { worker } from "./mocks/browser"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react"
 import theme from "./theme"
@@ -9,9 +9,9 @@ import theme from "./theme"
 const queryClient = new QueryClient()
 
 function prepare() {
-  if (process.env.NODE_ENV === "development") {
-    return worker.start()
-  }
+  // if (process.env.NODE_ENV === "development") {
+  //   return worker.start()
+  // }
   return Promise.resolve()
 }
 

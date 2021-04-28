@@ -40,20 +40,21 @@ export const DeleteModal = ({
     <Modal onClose={onClose} isOpen={isOpen}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>
-          {"Tem certeza que deseja deletar" + " " + title}
-        </ModalHeader>
+        <ModalHeader>{`Tem certeza que deseja deletar ${title}`}</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>Batata</ModalBody>
+        <ModalBody>{`Essa ação apagará todos os registros de ${title} no sistema`}</ModalBody>
         <ModalFooter>
-          <Button onClick={onClose}>Close</Button>
+          <Button onClick={onClose} colorScheme="yellow">
+            Não apagar
+          </Button>
           <Button
+            ml="2"
             onClick={() => {
               deleteMutation.mutate(id)
             }}
             isDisabled={deleteMutation.isLoading}
           >
-            {deleteMutation.isLoading ? "Deletando" : "Deletar"}
+            {deleteMutation.isLoading ? "Deletando" : "Confirmar Exclusão"}
           </Button>
         </ModalFooter>
       </ModalContent>

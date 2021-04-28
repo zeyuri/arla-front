@@ -1,1 +1,1 @@
-export type ResourceType = "consumer" | "device" | "user"
+export type ResourceType = "customer" | "device" | "user"
