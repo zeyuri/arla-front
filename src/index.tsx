@@ -4,6 +4,8 @@ import App from "./App"
 // import { worker } from "./mocks/browser"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react"
+import { BrowserRouter } from "react-router-dom"
+
 import theme from "./theme"
 
 const queryClient = new QueryClient()
@@ -21,7 +23,9 @@ void prepare().then(() => {
       <QueryClientProvider client={queryClient}>
         <ChakraProvider resetCSS theme={theme}>
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-          <App />
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
         </ChakraProvider>
       </QueryClientProvider>
     </React.StrictMode>,
