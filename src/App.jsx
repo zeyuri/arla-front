@@ -7,6 +7,7 @@ import {
   CustomersCreateRoute,
   DevicesListRoute,
 } from "./routes"
+import { UserListRoute } from "./routes/Users"
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
                 element={<CustomersCreateRoute />}
               />
               <Route path="/devices" element={<DevicesListRoute />} />
+              <Route path="/users" element={<UserListRoute />} />
             </Routes>
           </VStack>
         </Container>
@@ -34,12 +36,22 @@ function App() {
 export default App
 
 const Header = () => (
-  <Flex as="header" justify="space-between" align="center">
-    <Heading>Arla</Heading>
-    <Flex as="nav" justify="space-around" w="100%">
+  <Flex as="header" justify="space-between">
+    <Flex
+      as="nav"
+      justify="space-around"
+      w="100%"
+      align="flex-end"
+      fontSize="sm"
+    >
+      <Link to="/">
+        <Heading>Arla</Heading>
+      </Link>
       <Link to="/customers">Clientes</Link>
       <Link to="/devices">Dispositivos</Link>
+      <Link to="/users">Usuarios</Link>
+
+      <ColorModeSwitcher />
     </Flex>
-    <ColorModeSwitcher />
   </Flex>
 )
