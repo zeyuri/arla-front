@@ -1,7 +1,12 @@
 import { ColorModeSwitcher } from "./components"
 import { Box, VStack, Grid, Flex, Heading, Container } from "@chakra-ui/react"
 import { Routes, Route, Link } from "react-router-dom"
-import { HomeRoute, CustomerList, CustomersCreateRoute } from "./routes"
+import {
+  HomeRoute,
+  CustomerList,
+  CustomersCreateRoute,
+  DevicesListRoute,
+} from "./routes"
 
 function App() {
   return (
@@ -17,6 +22,7 @@ function App() {
                 path="/customers/create"
                 element={<CustomersCreateRoute />}
               />
+              <Route path="/devices" element={<DevicesListRoute />} />
             </Routes>
           </VStack>
         </Container>
@@ -30,8 +36,9 @@ export default App
 const Header = () => (
   <Flex as="header" justify="space-between" align="center">
     <Heading>Arla</Heading>
-    <Flex as="nav">
+    <Flex as="nav" justify="space-around" w="100%">
       <Link to="/customers">Clientes</Link>
+      <Link to="/devices">Dispositivos</Link>
     </Flex>
     <ColorModeSwitcher />
   </Flex>

@@ -10,7 +10,7 @@ import {
   useToast,
 } from "@chakra-ui/react"
 import { useMutation, useQueryClient } from "react-query"
-import api from "../../a"
+import api from "../../api"
 
 export const DeleteModal = ({ onClose, isOpen, id, resource, title }) => {
   const queryClient = useQueryClient()
