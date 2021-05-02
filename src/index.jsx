@@ -5,6 +5,7 @@ import App from "./App"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react"
 import { BrowserRouter } from "react-router-dom"
+import { ReactQueryDevtools } from "react-query/devtools"
 
 import theme from "./theme"
 
@@ -27,6 +28,7 @@ void prepare().then(() => {
             <App />
           </BrowserRouter>
         </ChakraProvider>
+        <ReactQueryDevtools />
       </QueryClientProvider>
     </React.StrictMode>,
     document.getElementById("root")

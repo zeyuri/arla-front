@@ -13,14 +13,14 @@
     "axios": "^0.21.1",
     "framer-motion": "^4",
     "history": "5",
-    "purify-ts": "^0.16.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-hook-form": "^7.3.5",
     "react-icons": "^4.2.0",
     "react-query": "^3.13.12",
     "react-router-dom": "^6.0.0-beta.0",
     "react-scripts": "4.0.3",
-    "typescript": "^4.1.2",
+    "react-select": "^4.3.0",
     "web-vitals": "^1.1.1"
   },
   "scripts": {
@@ -28,8 +28,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
-    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
+    "format": "prettier --write \"src/**/*.{js,jsx,json,css,scss,md}\"",
+    "lint": "eslint \"src/**/*.{js,jsx}\"",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
   },
@@ -37,23 +37,23 @@
     "extends": [
       "react-app",
       "react-app/jest",
-      "plugin:import/errors",
+      "eslint:recommended",
       "plugin:react/recommended",
       "plugin:jsx-a11y/recommended",
       "plugin:react-hooks/recommended",
-      "plugin:@typescript-eslint/recommended",
-      "plugin:@typescript-eslint/recommended-requiring-type-checking",
+      "plugin:testing-library/react",
+      "plugin:jest-dom/recommended",
+      "plugin:cypress/recommended",
       "prettier"
     ],
     "plugins": [
       "react",
-      "import",
-      "jsx-a11y",
-      "@typescript-eslint"
+      "jsx-a11y"
     ],
     "rules": {
       "react/prop-types": 0,
-      "react/react-in-jsx-scope": 0
+      "react/react-in-jsx-scope": 0,
+      "no-unused-vars": "warn"
     },
     "overrides": [
       {
@@ -80,6 +80,7 @@
   },
   "devDependencies": {
     "@emotion/jest": "^11.3.0",
+    "@hookform/devtools": "^3.0.2",
     "@storybook/addon-actions": "^6.2.9",
     "@storybook/addon-essentials": "^6.2.9",
     "@storybook/addon-links": "^6.2.9",
@@ -88,19 +89,11 @@
     "@storybook/preset-create-react-app": "^3.1.7",
     "@storybook/react": "^6.2.9",
     "@testing-library/react-hooks": "^5.1.2",
-    "@types/jest": "^26.0.15",
-    "@types/jest-axe": "^3.5.1",
-    "@types/node": "^12.0.0",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.22.0",
-    "@typescript-eslint/parser": "^4.22.0",
     "cypress": "^7.1.0",
     "cypress-cucumber-preprocessor": "^4.1.0",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "^7.25.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-cypress": "^2.11.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest-dom": "^3.8.1",
@@ -116,10 +109,10 @@
     "prettier": "^2.2.1"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+    "src/**/*.{js,jsx,json,css,scss,md}": [
       "prettier --write"
     ],
-    "src/**/*.{js,jsx,ts,tsx}": "eslint --quiet"
+    "src/**/*.{js,jsx}": "eslint --quiet"
   },
   "msw": {
     "workerDirectory": "public"

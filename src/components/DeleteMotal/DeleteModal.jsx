@@ -7,35 +7,40 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  useToast,
 } from "@chakra-ui/react"
-import { useMutation } from "react-query"
-import { ResourceType } from "../../@types"
-import api from "../../api"
+import { useMutation, useQueryClient } from "react-query"
+import api from "../../a"
 
-type DeleteModalProps = {
-  onClose: () => void
-  isOpen: boolean
-  id: string
-  title: string
-  resource: ResourceType
-}
+export const DeleteModal = ({ onClose, isOpen, id, resource, title }) => {
+  const queryClient = useQueryClient()
+  const toast = useToast()
 
-export const DeleteModal = ({
-  onClose,
-  isOpen,
-  id,
-  resource,
-  title,
-}: DeleteModalProps): JSX.Element => {
-  const deleteMutation = useMutation(
-    (id: string) => api.delete(`/${resource}/${id}`),
-    {
-      onSuccess: onClose,
-      onError: () => {
-        onClose()
-      },
-    }
-  )
+  const deleteMutation = useMutation((id) => api.delete(`/${resource}/${id}`), {
+    onSuccess: () => {
+      queryClient.setQueryData("customer-list", (oldData) => {
+        return oldData ? oldData.filter((customer) => customer.id !== id) : []
+      })
+      toast({
+        title: "Deletado com sucesso",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+        position: "top",
+      })
+      onClose()
+    },
+    onError: () => {
+      toast({
+        title: "Ops, algo deu errado!",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+        position: "top",
+      })
+      onClose()
+    },
+  })
   return (
     <Modal onClose={onClose} isOpen={isOpen}>
       <ModalOverlay />

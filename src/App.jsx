@@ -3,7 +3,7 @@ import { Box, VStack, Grid, Flex, Heading, Container } from "@chakra-ui/react"
 import { Routes, Route, Link } from "react-router-dom"
 import { HomeRoute, CustomerList, CustomersCreateRoute } from "./routes"
 
-function App(): JSX.Element {
+function App() {
   return (
     <Box textAlign="center" fontSize="xl">
       <Grid minH="100vh" p={3}>

@@ -1,26 +1,15 @@
-import { Codec, string, GetType } from "purify-ts/Codec"
 import api from "../../api"
 import { useQuery } from "react-query"
 import { Box, Flex, VStack, Link, Button } from "@chakra-ui/react"
 import { Card } from "../../components"
 import { Link as RouterLink } from "react-router-dom"
 
-const Customer = Codec.interface({
-  id: string,
-  name: string,
-  annotation: string,
-  estateId: string,
-  cityId: string,
-})
-
-type Customer = GetType<typeof Customer>
-
-const fetchCustomerList = async (): Promise<Customer[]> => {
-  const { data } = await api.get<{ data: Customer[] }>("/customer")
+const fetchCustomerList = async () => {
+  const { data } = await api.get("/customer")
   return data.data
 }
 
-export const CustomerList = (): JSX.Element | null => {
+export const CustomerList = () => {
   const { data, isLoading } = useQuery("customer-list", fetchCustomerList)
 
   return (

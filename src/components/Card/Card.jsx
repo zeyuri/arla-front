@@ -1,15 +1,9 @@
 import { Box, Button, Flex, Heading, useDisclosure } from "@chakra-ui/react"
 import { LinkBox, LinkOverlay } from "@chakra-ui/react"
-import { RiDeleteBin7Fill, RiEdit2Fill } from "react-icons/ri"
 import { DeleteModal } from "../DeleteMotal/DeleteModal"
+import { RiDeleteBin7Fill, RiEdit2Fill } from "react-icons/ri"
 
-export type CardProps = {
-  title: string
-  subtitle: string
-  id: string
-}
-
-export const Card = ({ title, subtitle, id }: CardProps): JSX.Element => {
+export const Card = ({ title, subtitle, id }) => {
   const { isOpen, onClose, onOpen } = useDisclosure()
 
   return (
@@ -36,7 +30,7 @@ export const Card = ({ title, subtitle, id }: CardProps): JSX.Element => {
             {subtitle}
           </Heading>
         </Box>
-        <Flex justify="space-between" flexBasis="30%" align="center">
+        <Flex justify="space-around" flexBasis="25%" align="center">
           <LinkOverlay href={`consumer/${id}`}>
             <Button isFullWidth leftIcon={<RiEdit2Fill />}>
               Editar
