@@ -2,8 +2,9 @@ import { Box, Button, Flex, Heading, useDisclosure } from "@chakra-ui/react"
 import { LinkBox, LinkOverlay } from "@chakra-ui/react"
 import { DeleteModal } from "../DeleteMotal/DeleteModal"
 import { RiDeleteBin7Fill, RiEdit2Fill } from "react-icons/ri"
+import { Link } from "react-router-dom"
 
-export const Card = ({ title, subtitle, id }) => {
+export const Card = ({ title, subtitle, id, entity }) => {
   const { isOpen, onClose, onOpen } = useDisclosure()
 
   return (
@@ -31,10 +32,12 @@ export const Card = ({ title, subtitle, id }) => {
           </Heading>
         </Box>
         <Flex justify="space-around" flexBasis="25%" align="center">
-          <LinkOverlay href={`consumer/${id}`}>
-            <Button isFullWidth leftIcon={<RiEdit2Fill />}>
-              Editar
-            </Button>
+          <LinkOverlay to={`edit/${id}`} as={Link}>
+            <Link to={`edit/${id}`}>
+              <Button isFullWidth leftIcon={<RiEdit2Fill />}>
+                Editar
+              </Button>
+            </Link>
           </LinkOverlay>
           <Button onClick={onOpen} leftIcon={<RiDeleteBin7Fill />}>
             Delete
@@ -44,9 +47,9 @@ export const Card = ({ title, subtitle, id }) => {
       <DeleteModal
         onClose={onClose}
         id={id}
-        resource="customer"
         title={title}
         isOpen={isOpen}
+        entity={entity}
       />
     </>
   )

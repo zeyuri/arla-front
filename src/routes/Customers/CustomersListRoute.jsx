@@ -1,16 +1,10 @@
-import api from "../../api"
-import { useQuery } from "react-query"
 import { Box, Flex, VStack, Link, Button } from "@chakra-ui/react"
 import { Card } from "../../components"
 import { Link as RouterLink } from "react-router-dom"
-
-const fetchCustomerList = async () => {
-  const { data } = await api.get("/customer")
-  return data.data
-}
+import { useCustomersList } from "../../hooks"
 
 export const CustomerList = () => {
-  const { data, isLoading } = useQuery("customer-list", fetchCustomerList)
+  const { data, isLoading } = useCustomersList()
 
   return (
     <Box w="100%" pt="10">
@@ -30,7 +24,8 @@ export const CustomerList = () => {
               key={`${customer.id}${i}`}
               id={customer.id}
               title={customer.name}
-              subtitle={`${customer.cityId} / ${customer.estateId}`}
+              subtitle={`${customer.city.name} / ${customer.estate.name}`}
+              entity="customer"
             />
           ))}
         </VStack>

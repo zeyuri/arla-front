@@ -7,7 +7,7 @@ import {
   CustomersCreateRoute,
   DevicesListRoute,
 } from "./routes"
-import { UserListRoute } from "./routes/Users"
+import { EditUserRoute, UserCreateRoute, UserListRoute } from "./routes/Users"
 
 function App() {
   return (
@@ -25,6 +25,8 @@ function App() {
               />
               <Route path="/devices" element={<DevicesListRoute />} />
               <Route path="/users" element={<UserListRoute />} />
+              <Route path="/users/create" element={<UserCreateRoute />} />
+              <Route path="/users/edit/:userId" element={<EditUserRoute />} />
             </Routes>
           </VStack>
         </Container>

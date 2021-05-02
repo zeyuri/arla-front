@@ -71,8 +71,6 @@ const CustomerForm = ({ estateOptions }) => {
       enabled: Boolean(estateId),
     }
   )
-  console.log(cityOptions)
-  console.log(estateId)
   // const navigate = useNavigate()
   // const toast = useToast()
 

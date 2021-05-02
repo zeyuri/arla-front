@@ -12,14 +12,14 @@ import {
 import { useMutation, useQueryClient } from "react-query"
 import api from "../../api"
 
-export const DeleteModal = ({ onClose, isOpen, id, resource, title }) => {
+export const DeleteModal = ({ onClose, isOpen, id, entity, title }) => {
   const queryClient = useQueryClient()
   const toast = useToast()
 
-  const deleteMutation = useMutation((id) => api.delete(`/${resource}/${id}`), {
+  const deleteMutation = useMutation((id) => api.delete(`/${entity}/${id}`), {
     onSuccess: () => {
-      queryClient.setQueryData("customer-list", (oldData) => {
-        return oldData ? oldData.filter((customer) => customer.id !== id) : []
+      queryClient.setQueryData(`${entity}-list`, (oldData) => {
+        return oldData ? oldData.filter((entity) => entity.id !== id) : []
       })
       toast({
         title: "Deletado com sucesso",

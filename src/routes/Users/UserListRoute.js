@@ -29,7 +29,8 @@ export function UserListRoute() {
               key={user.id}
               id={user.id}
               title={user.name}
-              subtitle={`${user.cityId} / ${user.estateId}`}
+              subtitle={user.email}
+              entity="user"
             />
           ))}
         </VStack>
