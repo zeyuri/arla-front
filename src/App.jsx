@@ -1,35 +1,40 @@
 import { ColorModeSwitcher } from "./components"
-import { Box, VStack, Grid, Flex, Heading, Container } from "@chakra-ui/react"
+import { Box, Grid, Flex, Heading } from "@chakra-ui/react"
 import { Routes, Route, Link } from "react-router-dom"
 import {
   HomeRoute,
   CustomerList,
   CustomersCreateRoute,
+  CustomersEditRoute,
   DevicesListRoute,
+  EditUserRoute,
+  UserCreateRoute,
+  UserListRoute,
 } from "./routes"
-import { EditUserRoute, UserCreateRoute, UserListRoute } from "./routes/Users"
 
 function App() {
   return (
-    <Box textAlign="center" fontSize="xl">
-      <Grid minH="100vh" p={3}>
-        <Container maxW="container.lg">
+    <Box>
+      <Grid minH="100vh">
+        <Flex>
           <Header />
-          <VStack spacing={8}>
-            <Routes>
-              <Route path="/" element={<HomeRoute />} />
-              <Route path="/customers" element={<CustomerList />} />
-              <Route
-                path="/customers/create"
-                element={<CustomersCreateRoute />}
-              />
-              <Route path="/devices" element={<DevicesListRoute />} />
-              <Route path="/users" element={<UserListRoute />} />
-              <Route path="/users/create" element={<UserCreateRoute />} />
-              <Route path="/users/edit/:userId" element={<EditUserRoute />} />
-            </Routes>
-          </VStack>
-        </Container>
+          <Routes>
+            <Route path="/" element={<HomeRoute />} />
+            <Route path="/customers" element={<CustomerList />} />
+            <Route
+              path="/customers/create"
+              element={<CustomersCreateRoute />}
+            />
+            <Route
+              path="/customers/edit/:customerId"
+              element={<CustomersEditRoute />}
+            />
+            <Route path="/devices" element={<DevicesListRoute />} />
+            <Route path="/users" element={<UserListRoute />} />
+            <Route path="/users/create" element={<UserCreateRoute />} />
+            <Route path="/users/edit/:userId" element={<EditUserRoute />} />
+          </Routes>
+        </Flex>
       </Grid>
     </Box>
   )
@@ -38,22 +43,37 @@ function App() {
 export default App
 
 const Header = () => (
-  <Flex as="header" justify="space-between">
+  <Box as="header" w="64" h="100%" bg="blackAlpha.700">
     <Flex
       as="nav"
-      justify="space-around"
+      direction="column"
+      justify="center"
       w="100%"
-      align="flex-end"
-      fontSize="sm"
+      fontSize="xl"
+      py="10"
+      textAlign="center"
     >
-      <Link to="/">
-        <Heading>Arla</Heading>
-      </Link>
-      <Link to="/customers">Clientes</Link>
-      <Link to="/devices">Dispositivos</Link>
-      <Link to="/users">Usuarios</Link>
+      <Box pb="8">
+        <Link to="/">
+          <Heading>
+            Arla
+            <br />
+            Agro
+          </Heading>
+        </Link>
+      </Box>
+
+      <LinkBox url="/customers" text="Clientes" />
+      <LinkBox url="/devices" text="Dispositivos" />
+      <LinkBox url="/users" text="Usuarios" />
 
       <ColorModeSwitcher />
     </Flex>
-  </Flex>
+  </Box>
+)
+
+const LinkBox = ({ text, url }) => (
+  <Box py="2">
+    <Link to={url}>{text}</Link>
+  </Box>
 )

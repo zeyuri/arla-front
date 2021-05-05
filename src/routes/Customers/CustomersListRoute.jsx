@@ -2,12 +2,13 @@ import { Box, Flex, VStack, Link, Button } from "@chakra-ui/react"
 import { Card } from "../../components"
 import { Link as RouterLink } from "react-router-dom"
 import { useCustomersList } from "../../hooks"
+import PageContainer from "../../components/PageContainer/PageContainer"
 
 export const CustomerList = () => {
   const { data, isLoading } = useCustomersList()
 
   return (
-    <Box w="100%" pt="10">
+    <PageContainer title="Clientes">
       <Flex justify="flex-end" w="100" py="8">
         <Button>
           <Link to="create" as={RouterLink}>
@@ -30,6 +31,6 @@ export const CustomerList = () => {
           ))}
         </VStack>
       ) : null}
-    </Box>
+    </PageContainer>
   )
 }

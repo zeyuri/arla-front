@@ -9,7 +9,7 @@ import {
   Button,
 } from "@chakra-ui/react"
 import { useForm } from "react-hook-form"
-import { DevTool } from "@hookform/devtools"
+// import { DevTool } from "@hookform/devtools"
 
 export function UserForm({ customersOptions, mutateFn, defaultValues }) {
   const {
@@ -41,7 +41,7 @@ export function UserForm({ customersOptions, mutateFn, defaultValues }) {
         onSubmit={handleSubmit(onSubmit)}
         w="100%"
       >
-        <DevTool control={control} />
+        {/* <DevTool control={control} /> */}
         <FormControl isInvalid={Boolean(errors.name)}>
           <FormLabel htmlFor="name">Nome Completo</FormLabel>
           <Input

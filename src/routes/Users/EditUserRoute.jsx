@@ -4,7 +4,6 @@ import api from "../../api"
 import { useParams } from "react-router-dom"
 import { Text } from "@chakra-ui/react"
 import { UserForm } from "./components"
-import { createResponseComposition } from "msw"
 
 const fetchUserById = async (id) => {
   const { data } = await api.get(`/user/${id}`)
