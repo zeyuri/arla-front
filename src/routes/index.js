@@ -1,4 +1,5 @@
 export * from "./Home"
 export * from "./Customers"
+export * from "./Dashboard"
 export * from "./Devices"
 export * from "./Users"

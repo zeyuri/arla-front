@@ -4,13 +4,14 @@ import api from "../../api"
 import { useParams } from "react-router-dom"
 import { Text } from "@chakra-ui/react"
 import { UserForm } from "./components"
+import { PageContainer } from "../../components"
 
 const fetchUserById = async (id) => {
   const { data } = await api.get(`/user/${id}`)
   return data.data
 }
 
-export function EditUserRoute() {
+export function UserEditRoute() {
   const { userId } = useParams()
 
   const { data: userData, isLoading: isLoadingUserData } = useQuery(
@@ -35,13 +36,17 @@ export function EditUserRoute() {
 
   const isLoading = isLoadingUserData && isLoadingCustomersList
 
-  return isLoading ? (
-    <Text>Loading..</Text>
-  ) : userData && customersList ? (
-    <UserForm
-      mutateFn={mutation.mutateAsync}
-      defaultValues={userData}
-      customersOptions={customersList}
-    />
-  ) : null
+  return (
+    <PageContainer title="Criação de usuario">
+      {isLoading ? (
+        <Text>Loading..</Text>
+      ) : userData && customersList ? (
+        <UserForm
+          mutateFn={mutation.mutateAsync}
+          defaultValues={userData}
+          customersOptions={customersList}
+        />
+      ) : null}
+    </PageContainer>
+  )
 }

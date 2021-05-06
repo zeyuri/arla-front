@@ -1,9 +1,8 @@
 import { useQuery } from "react-query"
 import api from "../../api"
 import { Box, Flex, VStack, Link, Button } from "@chakra-ui/react"
-import { Card } from "../../components"
+import { Card, PageContainer } from "../../components"
 import { Link as RouterLink } from "react-router-dom"
-import PageContainer from "../../components/PageContainer/PageContainer"
 
 const fetchUserList = async () => {
   const { data } = await api.get("/user")
@@ -13,10 +12,10 @@ const fetchUserList = async () => {
 export function UserListRoute() {
   const { data, isLoading } = useQuery("users-list", fetchUserList)
   return (
-    <PageContainer title="Úsuarios">
+    <PageContainer title="Usuarios">
       <Box w="100%" pt="10">
         <Flex justify="flex-end" w="100" py="8">
-          <Button>
+          <Button colorScheme="green">
             <Link to="create" as={RouterLink}>
               Criar Novo Usuario
             </Link>

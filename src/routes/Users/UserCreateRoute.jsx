@@ -1,8 +1,9 @@
 import { Text } from "@chakra-ui/react"
 import { useCustomersList } from "../../hooks"
 import { useMutation } from "react-query"
-import api from "../../api"
 import { UserForm } from "./components"
+import { PageContainer } from "../../components"
+import api from "../../api"
 
 export function UserCreateRoute() {
   const { data, isLoading } = useCustomersList({
@@ -11,9 +12,13 @@ export function UserCreateRoute() {
   })
   const mutation = useMutation((formdata) => api.post("user", { ...formdata }))
 
-  return isLoading ? (
-    <Text>Loading..</Text>
-  ) : (
-    <UserForm customersOptions={data} mutateFn={mutation.mutateAsync} />
+  return (
+    <PageContainer title="Criação de usuario">
+      {isLoading ? (
+        <Text>Loading..</Text>
+      ) : (
+        <UserForm customersOptions={data} mutateFn={mutation.mutateAsync} />
+      )}
+    </PageContainer>
   )
 }

@@ -31,15 +31,24 @@ export const Card = ({ title, subtitle, id, entity }) => {
             {subtitle}
           </Heading>
         </Box>
-        <Flex justify="space-around" flexBasis="25%" align="center">
+        <Flex flexBasis="40%" align="center" justify="flex-end">
           <LinkOverlay to={`edit/${id}`} as={Link}>
             <Link to={`edit/${id}`}>
-              <Button isFullWidth leftIcon={<RiEdit2Fill />}>
+              <Button
+                isFullWidth
+                leftIcon={<RiEdit2Fill />}
+                colorScheme="green"
+              >
                 Editar
               </Button>
             </Link>
           </LinkOverlay>
-          <Button onClick={onOpen} leftIcon={<RiDeleteBin7Fill />}>
+          <Button
+            onClick={onOpen}
+            leftIcon={<RiDeleteBin7Fill />}
+            colorScheme="red"
+            ml="4"
+          >
             Delete
           </Button>
         </Flex>

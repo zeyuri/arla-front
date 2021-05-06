@@ -1,5 +1,5 @@
 import { ColorModeSwitcher } from "./components"
-import { Box, Grid, Flex, Heading } from "@chakra-ui/react"
+import { Box, Grid, Flex, Image } from "@chakra-ui/react"
 import { Routes, Route, Link } from "react-router-dom"
 import {
   HomeRoute,
@@ -7,10 +7,13 @@ import {
   CustomersCreateRoute,
   CustomersEditRoute,
   DevicesListRoute,
-  EditUserRoute,
+  DevicesCreateRoute,
+  UserEditRoute,
   UserCreateRoute,
   UserListRoute,
+  DashboardRoute,
 } from "./routes"
+import logourl from "./assets/logoBranca.png"
 
 function App() {
   return (
@@ -30,9 +33,11 @@ function App() {
               element={<CustomersEditRoute />}
             />
             <Route path="/devices" element={<DevicesListRoute />} />
+            <Route path="/devices/create" element={<DevicesCreateRoute />} />
             <Route path="/users" element={<UserListRoute />} />
             <Route path="/users/create" element={<UserCreateRoute />} />
-            <Route path="/users/edit/:userId" element={<EditUserRoute />} />
+            <Route path="/users/edit/:userId" element={<UserEditRoute />} />
+            <Route path="/dashboards" element={<DashboardRoute />} />
           </Routes>
         </Flex>
       </Grid>
@@ -53,19 +58,21 @@ const Header = () => (
       py="10"
       textAlign="center"
     >
-      <Box pb="8">
+      <Box pb="8" px="8">
         <Link to="/">
-          <Heading>
+          <Image src={logourl} w="100%" />
+          {/* <Heading>
             Arla
             <br />
             Agro
-          </Heading>
+          </Heading> */}
         </Link>
       </Box>
 
       <LinkBox url="/customers" text="Clientes" />
       <LinkBox url="/devices" text="Dispositivos" />
       <LinkBox url="/users" text="Usuarios" />
+      <LinkBox url="/dashboards" text="Paineis" />
 
       <ColorModeSwitcher />
     </Flex>
@@ -73,7 +80,7 @@ const Header = () => (
 )
 
 const LinkBox = ({ text, url }) => (
-  <Box py="2">
+  <Box py="2" color="green.200">
     <Link to={url}>{text}</Link>
   </Box>
 )

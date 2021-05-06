@@ -9,12 +9,10 @@ import {
   Button,
 } from "@chakra-ui/react"
 import { useForm } from "react-hook-form"
-// import { DevTool } from "@hookform/devtools"
 
 export function UserForm({ customersOptions, mutateFn, defaultValues }) {
   const {
     register,
-    control,
     formState: { errors },
     handleSubmit,
   } = useForm({ defaultValues })
@@ -22,7 +20,7 @@ export function UserForm({ customersOptions, mutateFn, defaultValues }) {
   const onSubmit = async (formData) => {
     await mutateFn(formData)
   }
-  console.log(customersOptions, defaultValues)
+
   return (
     <Box
       borderWidth="1px"
@@ -113,7 +111,9 @@ export function UserForm({ customersOptions, mutateFn, defaultValues }) {
             {errors.annotation && errors.annotation.message}
           </FormErrorMessage>
         </FormControl>
-        <Button type="submit">Enviar</Button>
+        <Button type="submit" w="100%" size="lg" colorScheme="green">
+          Enviar
+        </Button>
       </VStack>
     </Box>
   )

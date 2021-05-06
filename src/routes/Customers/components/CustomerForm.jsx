@@ -84,24 +84,36 @@ export function CustomerForm({
             ml="4"
           >
             <FormLabel htmlFor="devicesId">Dispositivos</FormLabel>
-            <Controller
-              name="devicesId"
-              control={methods.control}
-              placeholder="Selecione um dispositivo"
-              render={({ field }) => (
-                <Select
-                  {...field}
-                  isMulti
-                  options={devicesOptions.map(({ id, name }) => ({
-                    value: id,
-                    label: name,
-                  }))}
-                />
-              )}
-            />
+            <Box color="black">
+              <Controller
+                name="devicesId"
+                control={methods.control}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    isMulti
+                    placeholder="Selecione um dispositivo"
+                    theme={(theme) => ({
+                      ...theme,
+                      colors: {
+                        ...theme.colors,
+                        primary25: "green",
+                        primary: "black",
+                      },
+                    })}
+                    options={devicesOptions.map(({ id, name }) => ({
+                      value: id,
+                      label: name,
+                    }))}
+                  />
+                )}
+              />
+            </Box>
           </FormControl>
 
-          <Button type="submit">Enviar</Button>
+          <Button type="submit" colorScheme="green" size="lg" w="100%">
+            Enviar
+          </Button>
         </VStack>
       </FormProvider>
     </Box>
@@ -117,7 +129,11 @@ const InputControl = ({ name, rules, label, placeholder }) => {
   return (
     <FormControl isInvalid={Boolean(errors[name])} isDisabled={isSubmitting}>
       <FormLabel htmlFor={name}>{label}</FormLabel>
-      <Input placeholder={placeholder} {...register(name, rules)} />
+      <Input
+        placeholder={placeholder}
+        {...register(name, rules)}
+        colorScheme="green"
+      />
       <FormErrorMessage>
         {errors[name] && errors[name].message}
       </FormErrorMessage>

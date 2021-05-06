@@ -4,6 +4,7 @@ import { CustomerForm } from "./components"
 import { useNavigate } from "react-router-dom"
 import { useEstateOptions, useDevicesOptions } from "../../hooks"
 import api from "../../api"
+import { PageContainer } from "../../components"
 
 export function CustomersCreateRoute() {
   const { stateOptions, isLoadingStates } = useEstateOptions()
@@ -37,16 +38,20 @@ export function CustomersCreateRoute() {
     }
   )
 
-  return isLoadingStates || isLoadingDevices ? (
-    <Text>Loading</Text>
-  ) : stateOptions && devicesOptions ? (
-    <CustomerForm
-      estateOptions={stateOptions}
-      devicesOptions={devicesOptions}
-      mutateFn={postCostumerMutation.mutateAsync}
-    />
-  ) : (
-    <Text>Algo deu errado</Text>
+  return (
+    <PageContainer title="Criação de Cliente">
+      {isLoadingStates || isLoadingDevices ? (
+        <Text>Loading</Text>
+      ) : stateOptions && devicesOptions ? (
+        <CustomerForm
+          estateOptions={stateOptions}
+          devicesOptions={devicesOptions}
+          mutateFn={postCostumerMutation.mutateAsync}
+        />
+      ) : (
+        <Text>Algo deu errado</Text>
+      )}
+    </PageContainer>
   )
 }
 
