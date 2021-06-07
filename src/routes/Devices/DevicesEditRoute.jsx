@@ -1,21 +1,24 @@
 import { PageContainer } from "../../components"
 import { DevicesForm } from "./components"
 import { useMutation } from "react-query"
-import { useNavigate } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
+import { useDevice } from "../../hooks"
 import { useToast } from "@chakra-ui/react"
 import api from "../../api"
 
-export function DevicesCreateRoute() {
+export function DevicesEditRoute() {
+  const { deviceId } = useParams()
+  const { deviceData } = useDevice(deviceId)
   const navigate = useNavigate()
 
   const toast = useToast()
 
   const postDevicesMutation = useMutation(
-    (payload) => api.post("/device", payload),
+    (payload) => api.put("/device", { id: deviceId, ...payload }),
     {
       onSuccess: () => {
         toast({
-          title: "Dispositivo criado com sucesso",
+          title: "Dispositivo editado com sucesso",
           status: "success",
           duration: 9000,
           isClosable: true,
@@ -35,8 +38,13 @@ export function DevicesCreateRoute() {
     }
   )
   return (
-    <PageContainer title="Cadastrar Dispositivo">
-      <DevicesForm mutateFn={postDevicesMutation.mutateAsync} />
+    <PageContainer title="Editar Dispositivo">
+      {deviceData && (
+        <DevicesForm
+          defaultValues={deviceData}
+          mutateFn={postDevicesMutation.mutateAsync}
+        />
+      )}
     </PageContainer>
   )
 }

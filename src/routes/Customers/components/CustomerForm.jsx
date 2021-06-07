@@ -5,7 +5,6 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Input,
   Flex,
   Textarea,
   Select as ChakraSelect,
@@ -20,6 +19,7 @@ import {
 import { useCitys } from "../../../hooks"
 import { DevTool } from "@hookform/devtools"
 import Select from "react-select"
+import { InputControl } from "../../../components"
 
 export function CustomerForm({
   estateOptions = [],
@@ -117,27 +117,6 @@ export function CustomerForm({
         </VStack>
       </FormProvider>
     </Box>
-  )
-}
-
-const InputControl = ({ name, rules, label, placeholder }) => {
-  const {
-    formState: { errors, isSubmitting },
-    register,
-  } = useFormContext()
-
-  return (
-    <FormControl isInvalid={Boolean(errors[name])} isDisabled={isSubmitting}>
-      <FormLabel htmlFor={name}>{label}</FormLabel>
-      <Input
-        placeholder={placeholder}
-        {...register(name, rules)}
-        colorScheme="green"
-      />
-      <FormErrorMessage>
-        {errors[name] && errors[name].message}
-      </FormErrorMessage>
-    </FormControl>
   )
 }
 

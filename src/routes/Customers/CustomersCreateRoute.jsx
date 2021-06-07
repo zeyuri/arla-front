@@ -24,7 +24,7 @@ export function CustomersCreateRoute() {
           isClosable: true,
           position: "top",
         })
-        navigate("/customers")
+        navigate("/app/customers")
       },
       onError: () => {
         toast({
@@ -54,15 +54,3 @@ export function CustomersCreateRoute() {
     </PageContainer>
   )
 }
-
-// const CustomerForm = ({ estateOptions }) => {
-
-//   const { data: cityOptions, isIdle, isLoading } = useQuery(
-//     ["city-options", estateId],
-//     () => fetchCitysByEstateId(estateId),
-//     {
-//       refetchOnWindowFocus: false,
-//       refetchInterval: false,
-//       enabled: Boolean(estateId),
-//     }
-//   )

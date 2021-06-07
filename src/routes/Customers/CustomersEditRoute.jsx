@@ -8,6 +8,7 @@ import {
   useCustomer,
   useCitys,
 } from "../../hooks"
+import { PageContainer } from "../../components"
 import api from "../../api"
 
 export function CustomersEditRoute() {
@@ -33,7 +34,7 @@ export function CustomersEditRoute() {
           isClosable: true,
           position: "top",
         })
-        navigate("/customers")
+        navigate("/app/customers")
       },
       onError: () => {
         toast({
@@ -47,19 +48,23 @@ export function CustomersEditRoute() {
     }
   )
 
-  return isLoadingStates ||
-    isLoadingDevices ||
-    isLoadingUserData ||
-    isLoadingCitys ? (
-    <Text>Loading</Text>
-  ) : stateOptions && devicesOptions && customerData && cityOptions ? (
-    <CustomerForm
-      estateOptions={stateOptions}
-      devicesOptions={devicesOptions}
-      defaultValues={customerData}
-      mutateFn={putCostumerMutation.mutateAsync}
-    />
-  ) : (
-    <Text>Algo deu errado</Text>
+  return (
+    <PageContainer title="Edição de Usuario">
+      {isLoadingStates ||
+      isLoadingDevices ||
+      isLoadingUserData ||
+      isLoadingCitys ? (
+        <Text>Loading</Text>
+      ) : stateOptions && devicesOptions && customerData && cityOptions ? (
+        <CustomerForm
+          estateOptions={stateOptions}
+          devicesOptions={devicesOptions}
+          defaultValues={customerData}
+          mutateFn={putCostumerMutation.mutateAsync}
+        />
+      ) : (
+        <Text>Algo deu errado</Text>
+      )}
+    </PageContainer>
   )
 }
