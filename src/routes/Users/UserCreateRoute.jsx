@@ -28,7 +28,6 @@ export function UserCreateRoute() {
         navigate("/app/users")
       },
       onError: (data) => {
-        console.log(data)
         toast({
           title: "Oops! Algo deu errado ao criar seu usuario",
           status: "error",

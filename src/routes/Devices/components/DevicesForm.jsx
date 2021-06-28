@@ -28,8 +28,6 @@ export function DevicesForm({
   const methods = useForm({ defaultValues: defaultValues ?? mockValues })
 
   const onSubmit = async (formData) => {
-    console.log(formData)
-    console.log(defaultValues)
     if (defaultValues) {
       formData.primaryKey = defaultValues.primaryKey
     }

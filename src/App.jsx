@@ -15,6 +15,7 @@ import {
   DevicesEditRoute,
   LoginRoute,
 } from "./routes"
+import { useEffect } from "react"
 
 function App() {
   return (
@@ -43,20 +44,20 @@ function App() {
 const DefaultRoute = () => {
   const { session } = useSession()
   const navigate = useNavigate()
-
-  if (!session.hasSession) {
-    navigate("/login")
-    return null
-  }
-
-  if (session.hasSession) {
-    if (session.isAdmin) {
-      navigate("/app")
-    } else {
-      navigate("/dashboards")
+  useEffect(() => {
+    if (!session.hasSession) {
+      navigate("login")
     }
-    return null
-  }
+
+    if (session.hasSession) {
+      if (session.isAdmin) {
+        navigate("/app")
+      } else {
+        navigate("/dashboards")
+      }
+    }
+  }, [navigate, session])
+  return null
 }
 
 export default App

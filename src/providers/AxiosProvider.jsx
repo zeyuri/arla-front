@@ -9,8 +9,6 @@ export const useAxiosProvider = () => useContext(AxiosContext)
 export function AxiosProvider({ children }) {
   const { session } = useSession()
 
-  console.log(session)
-
   const axios = useMemo(() => {
     const axios = Axios.create({
       baseURL: process.env.REACT_APP_API_URL,

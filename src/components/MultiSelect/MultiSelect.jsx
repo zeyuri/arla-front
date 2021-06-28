@@ -30,7 +30,6 @@ function InnerSelect({ name, options }) {
   })
 
   const onChangeHandler = (event) => {
-    console.log(event.target.value)
     onChange([event.target.value])
   }
 

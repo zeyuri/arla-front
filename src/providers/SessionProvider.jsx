@@ -64,7 +64,7 @@ const init = () => {
 
 export const SessionProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, {}, init)
-  console.log(state)
+
   const login = useCallback((payload) => {
     dispatch({ type: LOGIN_ACTION, payload })
   }, [])

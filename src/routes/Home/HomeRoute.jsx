@@ -4,13 +4,19 @@ import { ColorModeSwitcher } from "../../components"
 import logourl from "../../assets/logoBranca.png"
 import { useSession } from "../../providers"
 import { useNavigate } from "react-router-dom"
+import { useEffect } from "react"
 
 export function HomeRoute() {
   const { session } = useSession()
   const navigate = useNavigate()
 
+  useEffect(() => {
+    if (!session.isAdmin && !session.hasSession) {
+      navigate("/login")
+    }
+  }, [navigate, session])
+
   if (!session.isAdmin && !session.hasSession) {
-    navigate("/login")
     return null
   }
 
