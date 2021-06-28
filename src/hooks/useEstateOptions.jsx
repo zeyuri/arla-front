@@ -1,10 +1,15 @@
-import api from "../api"
 import { useQuery } from "react-query"
-const fetchEstates = async () => {
-  const { data } = await api.get("/location/estate")
-  return data.data
-}
+import { useAxiosProvider } from "../providers"
+import { useCallback } from "react"
+
 export function useEstateOptions() {
+  const axios = useAxiosProvider()
+
+  const fetchEstates = useCallback(async () => {
+    const { data } = await axios.get("/location/estate")
+    return data.data
+  }, [axios])
+
   const { data: stateOptions, isLoading: isLoadingStates, ...rest } = useQuery(
     "estate-options",
     fetchEstates,

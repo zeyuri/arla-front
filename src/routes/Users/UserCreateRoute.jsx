@@ -4,9 +4,10 @@ import { useMutation } from "react-query"
 import { UserForm } from "./components"
 import { PageContainer } from "../../components"
 import { useNavigate } from "react-router-dom"
-import api from "../../api"
+import { useAxiosProvider } from "../../providers"
 
 export function UserCreateRoute() {
+  const axios = useAxiosProvider()
   const { data, isLoading } = useCustomersList({
     refetchOnWindowFocus: false,
     refetchInterval: false,
@@ -14,7 +15,7 @@ export function UserCreateRoute() {
   const navigate = useNavigate()
   const toast = useToast()
   const mutation = useMutation(
-    (formdata) => api.post("user", { ...formdata }),
+    (formdata) => axios.post("user", { ...formdata }),
     {
       onSuccess: () => {
         toast({
@@ -26,7 +27,8 @@ export function UserCreateRoute() {
         })
         navigate("/app/users")
       },
-      onError: () => {
+      onError: (data) => {
+        console.log(data)
         toast({
           title: "Oops! Algo deu errado ao criar seu usuario",
           status: "error",

@@ -3,10 +3,11 @@ import { useMutation } from "react-query"
 import { CustomerForm } from "./components"
 import { useNavigate } from "react-router-dom"
 import { useEstateOptions, useDevicesOptions } from "../../hooks"
-import api from "../../api"
 import { PageContainer } from "../../components"
+import { useAxiosProvider } from "../../providers"
 
 export function CustomersCreateRoute() {
+  const axios = useAxiosProvider()
   const { stateOptions, isLoadingStates } = useEstateOptions()
   const { devicesOptions, isLoadingDevices } = useDevicesOptions()
 
@@ -14,7 +15,7 @@ export function CustomersCreateRoute() {
   const toast = useToast()
 
   const postCostumerMutation = useMutation(
-    (payload) => api.post("/customer", payload),
+    (payload) => axios.post("/customer", payload),
     {
       onSuccess: () => {
         toast({

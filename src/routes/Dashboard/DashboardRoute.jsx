@@ -1,6 +1,8 @@
 import { PageContainer } from "../../components"
 import { Select, Box, Flex, SimpleGrid } from "@chakra-ui/react"
 import { ReactComponent as PowerBiIcon } from "./powerBiIcon.svg"
+import { useNavigate } from "react-router-dom"
+import { useSession } from "../../providers"
 
 const mockedDevices = [
   {
@@ -22,6 +24,19 @@ const mockedDevices = [
 ]
 
 export function DashboardRoute() {
+  const navigate = useNavigate()
+  const { session } = useSession()
+
+  if (!session.hasSession) {
+    navigate("/login")
+    return null
+  }
+
+  if (session.isAdmin) {
+    navigate("/app")
+    return null
+  }
+
   return (
     <PageContainer title="Paineis">
       <Box py="10">

@@ -1,10 +1,14 @@
 import { useQuery } from "react-query"
-import api from "../api"
+import { useAxiosProvider } from "../providers"
+import { useCallback } from "react"
 
-const fetchCustomerList = async () => {
-  const { data } = await api.get("/customer")
-  return data.data
+export const useCustomersList = (options = {}) => {
+  const axios = useAxiosProvider()
+
+  const fetchCustomerList = useCallback(async () => {
+    const { data } = await axios.get("/customer")
+    return data.data
+  }, [axios])
+
+  return useQuery("customer-list", fetchCustomerList, options)
 }
-
-export const useCustomersList = (options = {}) =>
-  useQuery("customer-list", fetchCustomerList, options)

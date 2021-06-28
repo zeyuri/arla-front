@@ -3,15 +3,16 @@ import { DevicesForm } from "./components"
 import { useMutation } from "react-query"
 import { useNavigate } from "react-router-dom"
 import { useToast } from "@chakra-ui/react"
-import api from "../../api"
+import { useAxiosProvider } from "../../providers"
 
 export function DevicesCreateRoute() {
+  const axios = useAxiosProvider()
   const navigate = useNavigate()
 
   const toast = useToast()
 
   const postDevicesMutation = useMutation(
-    (payload) => api.post("/device", payload),
+    (payload) => axios.post("/device", payload),
     {
       onSuccess: () => {
         toast({

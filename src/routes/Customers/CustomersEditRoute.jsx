@@ -9,9 +9,10 @@ import {
   useCitys,
 } from "../../hooks"
 import { PageContainer } from "../../components"
-import api from "../../api"
+import { useAxiosProvider } from "../../providers"
 
 export function CustomersEditRoute() {
+  const axios = useAxiosProvider()
   const { customerId } = useParams()
   const { customerData, isLoadingUserData } = useCustomer(customerId)
   const { isLoadingCitys, cityOptions } = useCitys(
@@ -24,7 +25,7 @@ export function CustomersEditRoute() {
   const toast = useToast()
 
   const putCostumerMutation = useMutation(
-    (payload) => api.put("/customer", { id: customerId, ...payload }),
+    (payload) => axios.put("/customer", { id: customerId, ...payload }),
     {
       onSuccess: () => {
         toast({

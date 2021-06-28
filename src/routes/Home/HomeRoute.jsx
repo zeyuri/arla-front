@@ -1,9 +1,19 @@
-import { Box, Grid, Flex, Image } from "@chakra-ui/react"
+import { Box, Grid, Flex, Image, Button } from "@chakra-ui/react"
 import { Outlet, Link } from "react-router-dom"
 import { ColorModeSwitcher } from "../../components"
 import logourl from "../../assets/logoBranca.png"
+import { useSession } from "../../providers"
+import { useNavigate } from "react-router-dom"
 
 export function HomeRoute() {
+  const { session } = useSession()
+  const navigate = useNavigate()
+
+  if (!session.isAdmin && !session.hasSession) {
+    navigate("/login")
+    return null
+  }
+
   return (
     <Box>
       <Grid minH="100vh">
@@ -16,32 +26,44 @@ export function HomeRoute() {
   )
 }
 
-const Header = () => (
-  <Box as="header" w="64" h="100%" bg="blackAlpha.700">
-    <Flex
-      as="nav"
-      direction="column"
-      justify="center"
-      w="100%"
-      fontSize="xl"
-      py="10"
-      textAlign="center"
-    >
-      <Box pb="8" px="8">
-        <Link to="/">
-          <Image src={logourl} w="100%" />
-        </Link>
-      </Box>
+const Header = () => {
+  const { logout } = useSession()
+  return (
+    <Box as="header" w="64" h="100%" bg="blackAlpha.700">
+      <Flex
+        as="nav"
+        direction="column"
+        justify="center"
+        w="100%"
+        fontSize="xl"
+        py="10"
+        textAlign="center"
+      >
+        <Box pb="8" px="8">
+          <Link to="/">
+            <Image src={logourl} w="100%" />
+          </Link>
+        </Box>
 
-      <LinkBox url="customers" text="Clientes" />
-      <LinkBox url="devices" text="Dispositivos" />
-      <LinkBox url="users" text="Usuarios" />
-      <LinkBox url="dashboards" text="Paineis" />
+        <LinkBox url="customers" text="Clientes" />
+        <LinkBox url="devices" text="Dispositivos" />
+        <LinkBox url="users" text="Usuarios" />
+        <Flex w="100%" justify="center">
+          <Button
+            w="20"
+            onClick={() => {
+              logout()
+            }}
+          >
+            Sair
+          </Button>
+        </Flex>
 
-      <ColorModeSwitcher />
-    </Flex>
-  </Box>
-)
+        <ColorModeSwitcher />
+      </Flex>
+    </Box>
+  )
+}
 
 const LinkBox = ({ text, url }) => (
   <Box py="2" color="green.200">

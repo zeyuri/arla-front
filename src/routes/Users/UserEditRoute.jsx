@@ -1,29 +1,18 @@
-import { useCustomersList } from "../../hooks"
-import { useMutation, useQuery } from "react-query"
+import { useCustomersList, useUser } from "../../hooks"
+import { useMutation } from "react-query"
 import { useParams, useNavigate } from "react-router-dom"
 import { Text, useToast } from "@chakra-ui/react"
 import { UserForm } from "./components"
 import { PageContainer } from "../../components"
-import api from "../../api"
-
-const fetchUserById = async (id) => {
-  const { data } = await api.get(`/user/${id}`)
-  return data.data
-}
+import { useAxiosProvider } from "../../providers"
 
 export function UserEditRoute() {
-  const { userId } = useParams()
+  const axios = useAxiosProvider()
   const toast = useToast()
   const navigate = useNavigate()
+  const { userId } = useParams()
+  const { userData, isLoadingUserData } = useUser()
 
-  const { data: userData, isLoading: isLoadingUserData } = useQuery(
-    ["user", userId],
-    () => fetchUserById(userId),
-    {
-      refetchOnWindowFocus: false,
-      refetchInterval: false,
-    }
-  )
   const {
     data: customersList,
     isLoading: isLoadingCustomersList,
@@ -33,7 +22,7 @@ export function UserEditRoute() {
   })
 
   const mutation = useMutation(
-    (formdata) => api.put("user", { id: userId, ...formdata }),
+    (formdata) => axios.put("user", { id: userId, ...formdata }),
     {
       onSuccess: () => {
         toast({

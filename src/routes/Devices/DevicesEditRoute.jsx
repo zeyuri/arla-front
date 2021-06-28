@@ -4,9 +4,10 @@ import { useMutation } from "react-query"
 import { useParams, useNavigate } from "react-router-dom"
 import { useDevice } from "../../hooks"
 import { useToast } from "@chakra-ui/react"
-import api from "../../api"
+import { useAxiosProvider } from "../../providers"
 
 export function DevicesEditRoute() {
+  const axios = useAxiosProvider()
   const { deviceId } = useParams()
   const { deviceData } = useDevice(deviceId)
   const navigate = useNavigate()
@@ -14,7 +15,7 @@ export function DevicesEditRoute() {
   const toast = useToast()
 
   const postDevicesMutation = useMutation(
-    (payload) => api.put("/device", { id: deviceId, ...payload }),
+    (payload) => axios.put("/device", { id: deviceId, ...payload }),
     {
       onSuccess: () => {
         toast({

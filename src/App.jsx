@@ -1,4 +1,6 @@
+import { useNavigate } from "react-router-dom"
 import { Routes, Route } from "react-router-dom"
+import { useSession } from "./providers"
 import {
   HomeRoute,
   CustomerList,
@@ -30,12 +32,31 @@ function App() {
         <Route path="users" element={<UserListRoute />} />
         <Route path="users/create" element={<UserCreateRoute />} />
         <Route path="users/edit/:userId" element={<UserEditRoute />} />
-        <Route path="dashboards" element={<DashboardRoute />} />
       </Route>
-
+      <Route path="/dashboards" element={<DashboardRoute />} />
       <Route path="/login" element={<LoginRoute />} />
+      <Route path="/" element={<DefaultRoute />} />
     </Routes>
   )
+}
+
+const DefaultRoute = () => {
+  const { session } = useSession()
+  const navigate = useNavigate()
+
+  if (!session.hasSession) {
+    navigate("/login")
+    return null
+  }
+
+  if (session.hasSession) {
+    if (session.isAdmin) {
+      navigate("/app")
+    } else {
+      navigate("/dashboards")
+    }
+    return null
+  }
 }
 
 export default App

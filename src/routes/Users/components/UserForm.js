@@ -56,6 +56,7 @@ export function UserForm({ customersOptions, mutateFn, defaultValues }) {
           <Input
             isRequired
             placeholder="Insira o seu email"
+            isDisabled={Boolean(defaultValues)}
             {...register("email", {
               required: "Preenchimento Obrigatório",
               pattern: {

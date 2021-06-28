@@ -10,13 +10,14 @@ import {
   useToast,
 } from "@chakra-ui/react"
 import { useMutation, useQueryClient } from "react-query"
-import api from "../../api"
+import { useAxiosProvider } from "../../providers"
 
 export const DeleteModal = ({ onClose, isOpen, id, entity, title }) => {
+  const axios = useAxiosProvider()
   const queryClient = useQueryClient()
   const toast = useToast()
 
-  const deleteMutation = useMutation((id) => api.delete(`/${entity}/${id}`), {
+  const deleteMutation = useMutation((id) => axios.delete(`/${entity}/${id}`), {
     onSuccess: () => {
       queryClient.setQueryData(`${entity}-list`, (oldData) => {
         return oldData ? oldData.filter((entity) => entity.id !== id) : []

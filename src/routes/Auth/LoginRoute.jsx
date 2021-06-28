@@ -13,20 +13,47 @@ import {
   FormLabel,
   FormErrorMessage,
   InputRightElement,
+  useToast,
 } from "@chakra-ui/react"
 import { useForm, FormProvider, useFormContext } from "react-hook-form"
-import { useNavigate } from "react-router-dom"
 import { InputControl } from "../../components"
 import logourl from "../../assets/logo.png"
 import { RiEyeFill as ShowIcon, RiEyeOffFill as HideIcon } from "react-icons/ri"
+import { useAxiosProvider, useSession } from "../../providers"
+import { useMutation } from "react-query"
+import jwtDecode from "jwt-decode"
+import { ADMIN_ROLE } from "../../providers"
+import { useNavigate } from "react-router-dom"
 
 export function LoginRoute() {
+  const axios = useAxiosProvider()
   const methods = useForm()
   const navigate = useNavigate()
+  const toast = useToast()
+  const { login } = useSession()
 
-  const onSubmit = (data) => {
-    console.log(data)
-    navigate("/app")
+  const postLogin = useMutation((payload) => axios.post("/auth", payload), {
+    onSuccess: ({ data }) => {
+      login({ user: data.data.user, token: data.data.token })
+      if (jwtDecode(data.data.token).role === ADMIN_ROLE) {
+        navigate("/app")
+      } else {
+        navigate("/dashboards")
+      }
+    },
+    onError: () => {
+      toast({
+        title: "Ops, algo deu errado!",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+        position: "top",
+      })
+    },
+  })
+
+  const onSubmit = async (data) => {
+    await postLogin.mutateAsync(data)
   }
   return (
     <Center h="100vh" w="100%">

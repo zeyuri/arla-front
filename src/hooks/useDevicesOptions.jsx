@@ -1,11 +1,15 @@
-import api from "../api"
 import { useQuery } from "react-query"
+import { useAxiosProvider } from "../providers"
+import { useCallback } from "react"
 
-const fetchDevices = async () => {
-  const { data } = await api.get("/device/options")
-  return data.data
-}
 export function useDevicesOptions() {
+  const axios = useAxiosProvider()
+
+  const fetchDevices = useCallback(async () => {
+    const { data } = await axios.get("/device/options")
+    return data.data
+  }, [axios])
+
   const {
     data: devicesOptions,
     isLoading: isLoadingDevices,

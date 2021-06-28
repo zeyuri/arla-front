@@ -1,12 +1,18 @@
 import { useQuery } from "react-query"
-import api from "../api"
-
-export const fetchCitysByEstateId = async (estateId) => {
-  const { data } = await api.get(`/location/city/${estateId}`)
-  return data.data
-}
+import { useAxiosProvider } from "../providers"
+import { useCallback } from "react"
 
 export function useCitys(estateId) {
+  const axios = useAxiosProvider()
+
+  const fetchCitysByEstateId = useCallback(
+    async (estateId) => {
+      const { data } = await axios.get(`/location/city/${estateId}`)
+      return data.data
+    },
+    [axios]
+  )
+
   const { data: cityOptions, isLoading: isLoadingCitys, ...rest } = useQuery(
     ["city-options", estateId],
     () => fetchCitysByEstateId(estateId),
