@@ -11,7 +11,7 @@ export function AxiosProvider({ children }) {
 
   const axios = useMemo(() => {
     const axios = Axios.create({
-      baseURL: process.env.REACT_APP_API_URL,
+      baseURL: "https://arlaplataforma-dev9ccf.azurewebsites.net/api/v1",
       headers: {
         "Content-Type": "application/json",
       },

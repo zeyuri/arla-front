@@ -1,7 +1,6 @@
 import { Box, Grid, Flex, Image, Button } from "@chakra-ui/react"
 import { Outlet, Link, useMatch } from "react-router-dom"
 import { ColorModeSwitcher } from "../../components"
-import logoPB from "../../assets/logoBranca.png"
 import logoColor from "../../assets/logo.png"
 import { useSession } from "../../providers"
 import { useNavigate } from "react-router-dom"
