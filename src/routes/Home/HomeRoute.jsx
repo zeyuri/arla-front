@@ -61,7 +61,7 @@ const Header = () => {
         <Flex direction="column" justify="center" textAlign="center">
           <Box pb="8" px="8">
             <Link to="/">
-              <Image src={logoPB} w="100%" />
+              <Image src={logoColor} w="100%" />
             </Link>
           </Box>
 

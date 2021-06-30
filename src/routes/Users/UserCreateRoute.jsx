@@ -40,7 +40,7 @@ export function UserCreateRoute() {
   )
 
   return (
-    <PageContainer title="Criação de usuario">
+    <PageContainer title="Criação de Usuário">
       {isLoading ? (
         <Text>Loading..</Text>
       ) : (

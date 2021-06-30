@@ -73,7 +73,7 @@ export function UserForm({ customersOptions, mutateFn, defaultValues }) {
           <FormLabel htmlFor="contact">Contato</FormLabel>
           <Input
             isRequired
-            placeholder="Insira o seu nome completo"
+            placeholder="Insira o contato do usuário"
             {...register("contact", { required: "Preenchimento Obrigatório" })}
           />
           <FormErrorMessage>
@@ -103,7 +103,7 @@ export function UserForm({ customersOptions, mutateFn, defaultValues }) {
           <FormLabel htmlFor="annotation">Anotação</FormLabel>
           <Input
             isRequired
-            placeholder="Insira o seu nome completo"
+            placeholder="Anotações"
             {...register("annotation", {
               required: "Preenchimento Obrigatório",
             })}

@@ -38,7 +38,7 @@ export function DashboardRoute() {
   }
 
   return (
-    <PageContainer title="Paineis">
+    <PageContainer title="Painéis">
       <Box py="10">
         <Select size="lg">
           {mockedDevices.map((device) => (

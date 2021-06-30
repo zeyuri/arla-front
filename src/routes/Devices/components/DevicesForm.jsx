@@ -4,28 +4,13 @@ import { DevTool } from "@hookform/devtools"
 import { InputControl } from "../../../components"
 import { TelemetryFieldArray } from "./TelemetryFieldArray"
 
-const mockValues = {
-  name: "Batata",
-  annotation: "Agora vai",
-  telemetry: [
-    {
-      id: "batata",
-      node: "string",
-      typeTelemetry: 0,
-      minValue: 0,
-      maxValue: 1,
-      telemetryId: "",
-    },
-  ],
-}
-
 export function DevicesForm({
   mutateFn = (data) => {
     console.log(data)
   },
   defaultValues,
 }) {
-  const methods = useForm({ defaultValues: defaultValues ?? mockValues })
+  const methods = useForm({ defaultValues: defaultValues })
 
   const onSubmit = async (formData) => {
     if (defaultValues) {
