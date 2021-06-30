@@ -50,7 +50,7 @@ export function CustomersEditRoute() {
   )
 
   return (
-    <PageContainer title="Edição de Usuario">
+    <PageContainer title="Edição de Cliente">
       {isLoadingStates ||
       isLoadingDevices ||
       isLoadingUserData ||

@@ -1,14 +1,17 @@
 import { Box, Grid, Flex, Image, Button } from "@chakra-ui/react"
-import { Outlet, Link } from "react-router-dom"
+import { Outlet, Link, useMatch } from "react-router-dom"
 import { ColorModeSwitcher } from "../../components"
-import logourl from "../../assets/logoBranca.png"
+import logoPB from "../../assets/logoBranca.png"
+import logoColor from "../../assets/logo.png"
 import { useSession } from "../../providers"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
+import { RiLogoutBoxRLine as LogoutIcon } from "react-icons/ri"
 
 export function HomeRoute() {
   const { session } = useSession()
   const navigate = useNavigate()
+  const isHome = useMatch("/app")
 
   useEffect(() => {
     if (!session.isAdmin && !session.hasSession) {
@@ -25,7 +28,16 @@ export function HomeRoute() {
       <Grid minH="100vh">
         <Flex>
           <Header />
-          <Outlet />
+          <Box
+            w="100%"
+            bgImg={isHome ? `url(${logoColor})` : "unset"}
+            bgSize="60%"
+            bgPosition="center"
+            bgRepeat="no-repeat"
+            opacity={isHome ? "0.2" : "unset"}
+          >
+            <Outlet />
+          </Box>
         </Flex>
       </Grid>
     </Box>
@@ -39,24 +51,30 @@ const Header = () => {
       <Flex
         as="nav"
         direction="column"
-        justify="center"
+        justify="space-between"
         w="100%"
         fontSize="xl"
         py="10"
         textAlign="center"
+        h="100%"
       >
-        <Box pb="8" px="8">
-          <Link to="/">
-            <Image src={logourl} w="100%" />
-          </Link>
-        </Box>
+        <Flex direction="column" justify="center" textAlign="center">
+          <Box pb="8" px="8">
+            <Link to="/">
+              <Image src={logoPB} w="100%" />
+            </Link>
+          </Box>
 
-        <LinkBox url="customers" text="Clientes" />
-        <LinkBox url="devices" text="Dispositivos" />
-        <LinkBox url="users" text="Usuarios" />
+          <LinkBox url="customers" text="Clientes" />
+          <LinkBox url="devices" text="Dispositivos" />
+          <LinkBox url="users" text="Usuarios" />
+        </Flex>
+
         <Flex w="100%" justify="center">
+          <ColorModeSwitcher />
           <Button
             w="20"
+            leftIcon={<LogoutIcon />}
             onClick={() => {
               logout()
             }}
@@ -64,8 +82,6 @@ const Header = () => {
             Sair
           </Button>
         </Flex>
-
-        <ColorModeSwitcher />
       </Flex>
     </Box>
   )

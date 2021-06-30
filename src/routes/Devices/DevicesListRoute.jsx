@@ -1,5 +1,5 @@
 import { Box, Flex, VStack, Link, Button } from "@chakra-ui/react"
-import { Card, PageContainer } from "../../components"
+import { Card, PageContainer, SearchBox } from "../../components"
 import { Link as RouterLink } from "react-router-dom"
 import { useDevicesList } from "../../hooks"
 
@@ -8,7 +8,8 @@ export function DevicesListRoute() {
   return (
     <PageContainer title="Dispositivos">
       <Flex justify="flex-end" w="100" py="8">
-        <Button colorScheme="green">
+        <SearchBox placeholder="Pesquisar Dispositivos" />
+        <Button colorScheme="green" ml="8" w="48">
           <Link to="create" as={RouterLink}>
             Criar Novo Dispositivo
           </Link>

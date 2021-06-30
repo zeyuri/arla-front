@@ -24,6 +24,7 @@ import { useMutation } from "react-query"
 import jwtDecode from "jwt-decode"
 import { ADMIN_ROLE } from "../../providers"
 import { useNavigate } from "react-router-dom"
+import bgImage from "../../assets/loginBg.jpg"
 
 export function LoginRoute() {
   const axios = useAxiosProvider()
@@ -56,12 +57,11 @@ export function LoginRoute() {
     await postLogin.mutateAsync(data)
   }
   return (
-    <Center h="100vh" w="100%">
+    <Center h="100vh" w="100%" bgImage={`url(${bgImage})`} bgSize="cover">
       <Container
         borderWidth="1px"
-        rounded="md"
-        borderRadius={4}
-        boxShadow="0 0 0 1px #333"
+        bgColor="gray.900"
+        borderRadius={20}
         maxW="18.75rem"
         p="6"
       >

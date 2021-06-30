@@ -11,7 +11,7 @@ export function UserEditRoute() {
   const toast = useToast()
   const navigate = useNavigate()
   const { userId } = useParams()
-  const { userData, isLoadingUserData } = useUser()
+  const { userData, isLoadingUserData } = useUser(userId)
 
   const {
     data: customersList,
@@ -49,7 +49,7 @@ export function UserEditRoute() {
   const isLoading = isLoadingUserData && isLoadingCustomersList
 
   return (
-    <PageContainer title="Criação de usuario">
+    <PageContainer title="Edição de Usuário">
       {isLoading ? (
         <Text>Loading..</Text>
       ) : userData && customersList ? (

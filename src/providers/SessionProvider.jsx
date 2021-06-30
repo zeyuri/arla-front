@@ -1,6 +1,7 @@
 import { createContext, useContext, useReducer, useCallback } from "react"
 import { object, string, define, is } from "superstruct"
 import jwt_decode from "jwt-decode"
+import { boolean } from "superstruct"
 
 const LOGIN_ACTION = "LOGIN"
 const LOGOUT_ACTION = "LOGOUT"
@@ -18,6 +19,8 @@ const user = () => define("user", (payload) => is(payload, User))
 
 const Session = object({
   user: user(),
+  hasSession: boolean(),
+  isAdmin: boolean(),
   token: token(),
 })
 
@@ -49,6 +52,7 @@ const isAdmin = (token) => jwt_decode(token).role === ADMIN_ROLE
 
 const init = () => {
   const previousSession = JSON.parse(localStorage.getItem("session"))
+  console.log(previousSession)
 
   if (validateLocalStorage(previousSession)) {
     return {
@@ -88,36 +92,23 @@ export const useSession = () => useContext(SessionContext)
 function reducer(state, action) {
   switch (action.type) {
     case LOGIN_ACTION:
+      // eslint-disable-next-line no-case-declarations
+      const loggedSession = {
+        token: action.payload.token,
+        user: action.payload.user,
+        hasSession: true,
+        isAdmin: isAdmin(action.payload.token),
+      }
+      localStorage.setItem("session", JSON.stringify(loggedSession))
       return {
-        session: {
-          token: action.payload.token,
-          user: action.payload.user,
-          hasSession: true,
-          isAdmin: isAdmin(action.payload.token),
-        },
+        session: loggedSession,
       }
     case LOGOUT_ACTION:
-      return { session: { hasSession: false } }
+      // eslint-disable-next-line no-case-declarations
+      const logoutSession = { hasSession: false }
+      localStorage.setItem("session", JSON.stringify(logoutSession))
+      return { session: logoutSession }
     default:
       return state
   }
 }
-
-// function subscribe(reducer) {
-//   const reducerSubscribed = (state, action) => {
-//     const newState = reducer(state, action)
-//     const stateKeys = Object.keys(newState)
-
-//     dataToStore.forEach((key) => {
-//       if (stateKeys.includes(key)) {
-//         if (newState[key] === null || newState[key] === undefined)
-//           localStorage.removeItem(key)
-//         else localStorage.setItem(key, newState[key])
-//       }
-//     })
-
-//     return newState
-//   }
-
-//   return reducerSubscribed
-// }
