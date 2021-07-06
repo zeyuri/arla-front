@@ -1,5 +1,5 @@
 import { Box, Flex, VStack, Link, Button } from "@chakra-ui/react"
-import { Card, PageContainer, SearchBox } from "../../components"
+import { Card, NotFoundBox, PageContainer, SearchBox } from "../../components"
 import { Link as RouterLink } from "react-router-dom"
 import { useDevicesList } from "../../hooks"
 
@@ -17,7 +17,7 @@ export function DevicesListRoute() {
       </Flex>
       {isLoading ? (
         <Box>{"loading"}</Box>
-      ) : devices ? (
+      ) : devices && devices.length ? (
         <VStack as="ul" w="100%" spacing="6">
           {devices.map((device, i) => (
             <Card
@@ -29,7 +29,9 @@ export function DevicesListRoute() {
             />
           ))}
         </VStack>
-      ) : null}
+      ) : (
+        <NotFoundBox entity="dispositivo" />
+      )}
     </PageContainer>
   )
 }

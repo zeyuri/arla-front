@@ -12,7 +12,6 @@ export function UserEditRoute() {
   const navigate = useNavigate()
   const { userId } = useParams()
   const { userData, isLoadingUserData } = useUser(userId)
-
   const {
     data: customersList,
     isLoading: isLoadingCustomersList,

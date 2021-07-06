@@ -13,9 +13,9 @@ export function useCustomer(customerId) {
         annotation: data.data.annotation,
         estateId: data.data.estate.id,
         cityId: data.data.city.id,
-        devicesId: data.data.devices.map(({ id, name }) => ({
-          value: id,
-          label: name,
+        devicesId: data.data.devices.map(({ deviceName, deviceId }) => ({
+          value: deviceId,
+          label: deviceName,
         })),
       }
       return parsedData

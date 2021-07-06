@@ -1,5 +1,5 @@
 import { Box, Flex, VStack, Link, Button } from "@chakra-ui/react"
-import { Card, PageContainer } from "../../components"
+import { Card, NotFoundBox, PageContainer } from "../../components"
 import { Link as RouterLink } from "react-router-dom"
 import { useUsers } from "../../hooks"
 import { SearchBox } from "../../components"
@@ -19,7 +19,7 @@ export function UserListRoute() {
       </Flex>
       {isLoading ? (
         <Box>{"loading"}</Box>
-      ) : data ? (
+      ) : data && data.length ? (
         <VStack as="ul" w="100%" spacing="6">
           {data.map((user) => (
             <Card
@@ -31,7 +31,9 @@ export function UserListRoute() {
             />
           ))}
         </VStack>
-      ) : null}
+      ) : (
+        <NotFoundBox entity="Usuário" />
+      )}
     </PageContainer>
   )
 }

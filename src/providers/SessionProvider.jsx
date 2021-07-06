@@ -2,6 +2,7 @@ import { createContext, useContext, useReducer, useCallback } from "react"
 import { object, string, define, is } from "superstruct"
 import jwt_decode from "jwt-decode"
 import { boolean } from "superstruct"
+import { tryCatch } from "../utils"
 
 const LOGIN_ACTION = "LOGIN"
 const LOGOUT_ACTION = "LOGOUT"
@@ -15,6 +16,7 @@ const User = object({
   contact: string(),
   customerId: string(),
 })
+
 const user = () => define("user", (payload) => is(payload, User))
 
 const Session = object({
@@ -50,11 +52,22 @@ export const ADMIN_ROLE = "Administrador"
 
 const isAdmin = (token) => jwt_decode(token).role === ADMIN_ROLE
 
+const decodeToken = (token) => tryCatch(() => jwt_decode(token))
+
+const isExpired = (token) =>
+  decodeToken(token)
+    .map(({ exp }) => new Date(exp * 1000) < Date.now())
+    .mapLeft((x) => {
+      console.log(x)
+      return true
+    })
+
 const init = () => {
   const previousSession = JSON.parse(localStorage.getItem("session"))
-  console.log(previousSession)
+  const isTokenExpired =
+    previousSession && isExpired(previousSession.token).extract()
 
-  if (validateLocalStorage(previousSession)) {
+  if (validateLocalStorage(previousSession) && !isTokenExpired) {
     return {
       session: {
         ...previousSession,
@@ -63,6 +76,8 @@ const init = () => {
       },
     }
   }
+
+  localStorage.setItem("session", JSON.stringify({ hasSession: false }))
   return { session: { hasSession: false } }
 }
 
